@@ -128,11 +128,11 @@ class _TodoListState extends State<TodoList> {
       floatingActionButton: FloatingActionButton(
         onPressed: () => _displayDialog(context),
         tooltip: "Add todo",
-        child: Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
         backgroundColor: Colors.orange.shade800,
+        child: const Icon(
+          color: Colors.white,
+          Icons.add,
+        ),
       ),
     );
   }
