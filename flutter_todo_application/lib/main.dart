@@ -14,8 +14,11 @@ class TodoApp extends StatelessWidget {
     return MaterialApp(
       title: 'Todo App',
       theme: ThemeData(
-        backgroundColor: Colors.black,
+        brightness: Brightness.dark,
+        appBarTheme: AppBarTheme(backgroundColor: Colors.black),
+        scaffoldBackgroundColor: Color.fromARGB(255, 22, 22, 22),
       ),
+      debugShowCheckedModeBanner: false,
       home: const TodoList(title: 'Todolist'),
     );
   }
@@ -60,6 +63,7 @@ class _TodoListState extends State<TodoList> {
                   ? TextDecoration.lineThrough
                   : TextDecoration.none)),
       leading: Checkbox(
+        activeColor: Colors.orange.shade800,
         value: todo.checked,
         onChanged: (bool? newValue) {
           setState(() {
@@ -80,6 +84,7 @@ class _TodoListState extends State<TodoList> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
+            backgroundColor: Color.fromARGB(255, 22, 22, 22),
             title: const Text("Add todo"),
             content: TextField(
               controller: _addTodoField,
@@ -87,7 +92,8 @@ class _TodoListState extends State<TodoList> {
             ),
             actions: <Widget>[
               TextButton(
-                child: const Text("Cancel"),
+                child:
+                    const Text("Cancel", style: TextStyle(color: Colors.red)),
                 onPressed: () {
                   Navigator.of(context).pop(true);
                 },
@@ -120,9 +126,14 @@ class _TodoListState extends State<TodoList> {
       ),
       body: ListView(children: _getItems()),
       floatingActionButton: FloatingActionButton(
-          onPressed: () => _displayDialog(context),
-          tooltip: "Add todo",
-          child: Icon(Icons.add)),
+        onPressed: () => _displayDialog(context),
+        tooltip: "Add todo",
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+        backgroundColor: Colors.orange.shade800,
+      ),
     );
   }
 }
