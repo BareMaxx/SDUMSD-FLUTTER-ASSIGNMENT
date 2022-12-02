@@ -71,10 +71,9 @@ class _TodoListState extends State<TodoList> {
           });
         },
       ),
-      trailing: TextButton(
+      trailing: IconButton(
         onPressed: () => _deleteTodo(todo),
-        child: Icon(Icons.remove_circle),
-        style: TextButton.styleFrom(foregroundColor: Colors.red),
+        icon: Icon(Icons.remove_circle, color: Colors.red),
       ),
     );
   }
