@@ -54,9 +54,11 @@ class _TodoListState extends State<TodoList> {
   final TextEditingController _addTodoField = TextEditingController();
 
   void _addTodo(String todo) {
-    setState(() {
-      _todos.add(Todo(todoTitle: todo));
-    });
+    if (todo.length > 0) {
+      setState(() {
+        _todos.add(Todo(todoTitle: todo));
+      });
+    }
     _addTodoField.clear();
   }
 
@@ -113,6 +115,7 @@ class _TodoListState extends State<TodoList> {
                     const Text("Cancel", style: TextStyle(color: Colors.red)),
                 onPressed: () {
                   Navigator.of(context).pop(true);
+                  _addTodoField.clear();
                 },
               ),
               TextButton(
