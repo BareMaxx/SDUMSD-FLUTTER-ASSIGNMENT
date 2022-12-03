@@ -56,7 +56,6 @@ class _TodoListState extends State<TodoList> {
   void _addTodo(String todo) {
     setState(() {
       _todos.add(Todo(todoTitle: todo));
-      _todos.sort();
     });
     _addTodoField.clear();
   }
@@ -86,6 +85,7 @@ class _TodoListState extends State<TodoList> {
         onChanged: (bool? newValue) {
           setState(() {
             todo.checked = newValue ?? false;
+            _todos.sort();
           });
         },
       ),
@@ -141,7 +141,24 @@ class _TodoListState extends State<TodoList> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: ListView(children: _getItems()),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        verticalDirection: VerticalDirection.down,
+        children: <Widget>[
+          SizedBox(
+              height: 50,
+              child: TextButton(
+                onPressed: () => _clearCompletedTodos(),
+                child: Text(
+                  "Clear completed todos",
+                  style: TextStyle(color: Colors.red),
+                ),
+              )),
+          Expanded(
+              child:
+                  ListView(padding: EdgeInsets.all(5), children: _getItems())),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _displayDialog(context),
         tooltip: "Add todo",
