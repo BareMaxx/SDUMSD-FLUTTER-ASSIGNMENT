@@ -32,19 +32,31 @@ class TodoList extends StatefulWidget {
   State<TodoList> createState() => _TodoListState();
 }
 
-class Todo {
+class Todo implements Comparable<Todo> {
   Todo({required this.todoTitle, this.checked = false});
   final String todoTitle;
   bool checked = false;
+
+  @override
+  int compareTo(Todo todo) {
+    if (this.checked && !todo.checked) {
+      return 1;
+    } else if (this.checked == todo.checked) {
+      return 0;
+    } else {
+      return -1;
+    }
+  }
 }
 
 class _TodoListState extends State<TodoList> {
-  final List<Todo> _todos = <Todo>[];
+  List<Todo> _todos = <Todo>[];
   final TextEditingController _addTodoField = TextEditingController();
 
   void _addTodo(String todo) {
     setState(() {
       _todos.add(Todo(todoTitle: todo));
+      _todos.sort();
     });
     _addTodoField.clear();
   }
@@ -52,6 +64,12 @@ class _TodoListState extends State<TodoList> {
   void _deleteTodo(Todo removeTodo) {
     setState(() {
       _todos.removeWhere((todo) => todo.todoTitle == removeTodo.todoTitle);
+    });
+  }
+
+  void _clearCompletedTodos() {
+    setState(() {
+      _todos.removeWhere((todo) => todo.checked == true);
     });
   }
 
