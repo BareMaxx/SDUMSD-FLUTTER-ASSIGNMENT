@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,8 +13,8 @@ class TodoApp extends StatelessWidget {
       title: 'Todo App',
       theme: ThemeData(
         brightness: Brightness.dark,
-        appBarTheme: AppBarTheme(backgroundColor: Colors.black),
-        scaffoldBackgroundColor: Color.fromARGB(255, 22, 22, 22),
+        appBarTheme: const AppBarTheme(backgroundColor: Colors.black),
+        scaffoldBackgroundColor: const Color.fromARGB(255, 22, 22, 22),
       ),
       debugShowCheckedModeBanner: false,
       home: const TodoList(title: 'Todolist'),
@@ -50,11 +48,11 @@ class Todo implements Comparable<Todo> {
 }
 
 class _TodoListState extends State<TodoList> {
-  List<Todo> _todos = <Todo>[];
+  final List<Todo> _todos = <Todo>[];
   final TextEditingController _addTodoField = TextEditingController();
 
   void _addTodo(String todo) {
-    if (todo.length > 0) {
+    if (todo.isNotEmpty) {
       setState(() {
         _todos.add(Todo(todoTitle: todo));
       });
@@ -93,7 +91,7 @@ class _TodoListState extends State<TodoList> {
       ),
       trailing: IconButton(
         onPressed: () => _deleteTodo(todo),
-        icon: Icon(Icons.remove_circle, color: Colors.red),
+        icon: const Icon(Icons.remove_circle, color: Colors.red),
       ),
     );
   }
@@ -103,7 +101,7 @@ class _TodoListState extends State<TodoList> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            backgroundColor: Color.fromARGB(255, 22, 22, 22),
+            backgroundColor: const Color.fromARGB(255, 22, 22, 22),
             title: const Text("Add todo"),
             content: TextField(
               controller: _addTodoField,
@@ -152,14 +150,14 @@ class _TodoListState extends State<TodoList> {
               height: 50,
               child: TextButton(
                 onPressed: () => _clearCompletedTodos(),
-                child: Text(
+                child: const Text(
                   "Clear completed todos",
                   style: TextStyle(color: Colors.red),
                 ),
               )),
           Expanded(
-              child:
-                  ListView(padding: EdgeInsets.all(5), children: _getItems())),
+              child: ListView(
+                  padding: const EdgeInsets.all(5), children: _getItems())),
         ],
       ),
       floatingActionButton: FloatingActionButton(
